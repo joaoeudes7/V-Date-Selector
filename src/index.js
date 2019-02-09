@@ -1,4 +1,4 @@
-import VDatePicker from './components/V-Multi-Select.vue';
+import VDatePicker from './components/VDatePicker';
 
 // Declare install function executed by Vue.use()
 export function install(Vue) {

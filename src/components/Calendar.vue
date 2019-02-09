@@ -49,19 +49,21 @@ export default {
     mapWeek() {
       const week = [[], [], [], [], [], [], []];
 
+      // week[0] = "Sunday";
+      // week[1] = "Monday";
+      // week[2] = "Tuesday";
+      // week[3] = "Wednesday";
+      // week[4] = "Thursday";
+      // week[5] = "Friday";
+      // week[6] = "Saturday";
+
       const firstDayMonth = new Date(this.year, this.month, 1).getDay();
       const lastDayMonth = new Date(this.year, this.month + 1, 0).getDay();
 
-      const PrevMonth = new Date(this.year, this.month, 0);
-      const NextMonth = new Date(this.year, this.month + 1, 1);
-
-      const lastDayPrevMonth = PrevMonth.getDay();
-      let lastDatePrevMonth = PrevMonth.getDate();
-
-      const firstDayNextMonth = NextMonth.getDay();
-      let firstDateNextMonth = NextMonth.getDate();
+      const lastDayPrevMonth = firstDayMonth == 0 ? 6 : firstDayMonth - 1;
 
       if (lastDayPrevMonth != 6) {
+        let lastDatePrevMonth = new Date(this.year, this.month, 0).getDate();
         for (let day = lastDayPrevMonth; day > -1; day--) {
           week[day].push(lastDatePrevMonth);
           lastDatePrevMonth--;
@@ -76,6 +78,8 @@ export default {
         currentDate.setDate(date + 1);
       }
 
+      const firstDayNextMonth = lastDayMonth == 6 ? 0 : lastDayMonth + 1;
+      let firstDateNextMonth = 1;
       for (let day = firstDayNextMonth; day <= 6; day++) {
         week[day].push(firstDateNextMonth);
         firstDateNextMonth++;
@@ -84,8 +88,10 @@ export default {
       return week;
     },
     mapMonth() {
-      const month = [[], [], [], [], []];
-      for (let index = 0; index < 5; index++) {
+      const qtdWeeks = this.mapWeek[0].length;
+      const month = [[], [], [], [], [], []];
+
+      for (let index = 0; index < qtdWeeks; index++) {
         month[index] = this.mapWeek.map(days => days[index]);
       }
       return month;
