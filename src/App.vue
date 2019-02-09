@@ -1,18 +1,21 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>{{ date }}</div>
+    <VDatePicker v-model="date"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import VDatePicker from './components/VDatePicker'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  }
+    VDatePicker
+  },
+  data: () => ({
+    date: new Date()
+  })
 }
 </script>
 

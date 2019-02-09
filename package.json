@@ -1,14 +1,36 @@
 {
-  "name": "v-picker",
-  "version": "0.1.0",
-  "private": true,
+  "name": "v-datepicker",
+  "version": "1.0.0",
+  "license": "MIT",
+  "homepage": "https://github.com/joaoeudes7/V-DatePicker#readme",
+  "author": {
+    "name": "João Eudes Lima",
+    "email": "joaoeudes7@gmail.com",
+    "url": "https://github.com/joaoeudes7"
+  },
+  "repository": "https://github.com/joaoeudes7/V-DatePicker",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve --open",
+    "build": "vue-cli-service build --target lib --name v-datepicker ./src/index.js",
+    "build-wc": "vue-cli-service build --target wc --name v-datepicker 'src/components/*.vue'",
+    "build-wc-async": "vue-cli-service build --target wc-async --name v-datepicker 'src/components/*.vue'",
     "lint": "vue-cli-service lint"
   },
+  "main": "dist/v-datepicker.umd.js",
+  "module": "dist/v-datepicker.esm.js",
+  "unpkg": "dist/v-datepicker.min.js",
+  "style": "dist/v-datepicker.css",
+  "keywords": [
+    "double-select-list",
+    "vue",
+    "multi-select-list"
+  ],
+  "files": [
+    "dist/*"
+  ],
   "dependencies": {
-    "vue": "^2.5.22"
+    "vue": "^2.5.22",
+    "vuex": "^3.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
