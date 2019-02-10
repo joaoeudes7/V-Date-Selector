@@ -2,24 +2,24 @@
   "name": "v-date-selector",
   "version": "1.0.0",
   "license": "MIT",
-  "homepage": "https://github.com/joaoeudes7/V-DatePicker#readme",
+  "homepage": "https://github.com/joaoeudes7/V-Date-Selector#readme",
   "author": {
     "name": "João Eudes Lima",
     "email": "joaoeudes7@gmail.com",
     "url": "https://github.com/joaoeudes7"
   },
-  "repository": "https://github.com/joaoeudes7/V-DatePicker",
+  "repository": "https://github.com/joaoeudes7/V-Date-Selector",
   "scripts": {
     "serve": "vue-cli-service serve --open",
-    "build": "vue-cli-service build --target lib --name v-datepicker ./src/index.js",
-    "build-wc": "vue-cli-service build --target wc --name v-datepicker 'src/components/*.vue'",
-    "build-wc-async": "vue-cli-service build --target wc-async --name v-datepicker 'src/components/*.vue'",
+    "build": "vue-cli-service build --target lib --name v-date-selector ./src/index.js",
+    "build-wc": "vue-cli-service build --target wc --name v-date-selector 'src/components/*.vue'",
+    "build-wc-async": "vue-cli-service build --target wc-async --name v-date-selector 'src/components/*.vue'",
     "lint": "vue-cli-service lint"
   },
-  "main": "dist/v-datepicker.umd.js",
-  "module": "dist/v-datepicker.esm.js",
-  "unpkg": "dist/v-datepicker.min.js",
-  "style": "dist/v-datepicker.css",
+  "main": "dist/v-date-selector.umd.js",
+  "module": "dist/v-date-selector.esm.js",
+  "unpkg": "dist/v-date-selector.min.js",
+  "style": "dist/v-date-selector.css",
   "keywords": [
     "double-select-list",
     "vue",

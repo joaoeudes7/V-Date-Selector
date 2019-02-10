@@ -14,7 +14,7 @@ import Selector from "./Selector";
 import Input from "./Input";
 
 export default {
-  name: "VDatePicker",
+  name: "VDateSelector",
   props: {
     value: { type: Date || String },
     showInput: { type: Boolean, default: true }

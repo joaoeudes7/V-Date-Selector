@@ -1,22 +1,22 @@
 <template>
   <div id="app">
-    <VDatePicker v-model="date"/>
+    <VDateSelector v-model="date"/>
   </div>
 </template>
 
 <script>
-import VDatePicker from './index.js'
+import VDateSelector from './index.js'
 
 export default {
   name: 'app',
   components: {
-    VDatePicker
+    VDateSelector
   },
   data: () => ({
     date: new Date('11/1/2018')
   }),
   mounted() {
-    console.log(VDatePicker)
+    console.log(VDateSelector)
   }
 }
 </script>

@@ -1,10 +1,10 @@
-import VDatePicker from './components/VDatePicker';
+import VDateSelector from './components/VDateSelector';
 
 // Declare install function executed by Vue.use()
 export function install(Vue) {
   if (install.installed) return;
   install.installed = true;
-  Vue.component('VDatePicker', VDatePicker);
+  Vue.component('VDateSelector', VDateSelector);
 }
 
 // Create module definition for Vue.use()
@@ -23,4 +23,4 @@ if (GlobalVue) {
   GlobalVue.use(plugin);
 }
 
-export default VDatePicker;
+export default VDateSelector;
