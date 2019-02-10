@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <div>{{ date }}</div>
     <VDatePicker v-model="date"/>
   </div>
 </template>
 
 <script>
-import VDatePicker from './components/VDatePicker'
+import VDatePicker from './index.js'
 
 export default {
   name: 'app',
@@ -14,8 +13,11 @@ export default {
     VDatePicker
   },
   data: () => ({
-    date: new Date()
-  })
+    date: new Date('11/1/2018')
+  }),
+  mounted() {
+    console.log(VDatePicker)
+  }
 }
 </script>
 
@@ -27,5 +29,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  display: flex;
+  justify-content: center;
 }
 </style>

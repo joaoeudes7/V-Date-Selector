@@ -4,16 +4,21 @@
       <span v-for="(day, index) in weekDays" class="day" v-html="day" :key="`day-${index}`"/>
     </div>
     <div class="dates">
-      <template v-for="(_date, idate) in datesPrevMonth">
-        <span class="date-disable" v-html="_date" :key="`pm-${idate}`"/>
+      <template v-for="(_date, index) in daysPrevMonth">
+        <span class="date-disable" v-html="_date" :key="`pm-${index}`"/>
       </template>
 
-      <template v-for="(_date, idate) in datesCurrentMonth">
-        <span v-html="_date" :class="['date']" :key="`cm-${idate}`" @click="selectDate(_date) "/>
+      <template v-for="(_date, index) in daysMonth">
+        <span
+          v-html="_date"
+          :class="[isDateCurrent(_date) ? 'date-current' : 'date']"
+          :key="`m-${index}`"
+          @click="selectDate(_date) "
+        />
       </template>
 
-      <template v-for="(_date, idate) in datesNextMonth">
-        <span class="date-disable" v-html="_date" :key="`nm-${idate}`"/>
+      <template v-for="(_date, index) in daysNextMonth">
+        <span class="date-disable" v-html="_date" :key="`nm-${index}`"/>
       </template>
     </div>
   </div>
@@ -22,7 +27,7 @@
 <script>
 export default {
   name: "Calendar",
-  props: ["value", "i18n"],
+  props: ["value", "isActualDate", "i18n"],
   data() {
     return {
       weekDays: this.i18n || ["D", "S", "T", "Q", "Q", "S", "S"],
@@ -34,6 +39,9 @@ export default {
       const _date = new Date(this.currentDate);
       _date.setDate(date);
       this.$emit("input", _date);
+    },
+    isDateCurrent(value) {
+      return this.isActualDate && this.date === value;
     }
   },
   computed: {
@@ -49,7 +57,7 @@ export default {
     date() {
       return this.currentDate.getDate();
     },
-    datesPrevMonth() {
+    daysPrevMonth() {
       const firstDayMonth = new Date(this.year, this.month, 1).getDay();
 
       let dates = [];
@@ -63,7 +71,7 @@ export default {
       }
       return dates.reverse();
     },
-    datesNextMonth() {
+    daysNextMonth() {
       const lastDayMonth = new Date(this.year, this.month + 1, 0).getDay();
 
       let dates = [];
@@ -77,7 +85,7 @@ export default {
       }
       return dates;
     },
-    datesCurrentMonth() {
+    daysMonth() {
       let dates = [];
 
       for (let date = 1; date <= this.totalDays; date++) {
