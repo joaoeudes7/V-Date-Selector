@@ -1,8 +1,8 @@
 <template>
   <div id="Selector">
     <div class="controllers">
-      <div @click="onPrev()" class="icon" v-html="icons.arrowLeft" />
-      <div @click="setType('month')">{{ month + 1 }}</div>
+      <div @click="onPrev()" class="icon" v-html="icons.arrowLeft"/>
+      <div @click="setType('month')">{{ formattedMonth }}</div>
       <div @click="setType('year')">{{ year }}</div>
       <div @click="onNext()" class="icon" v-html="icons.arrowRight"/>
     </div>
@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import icons from './icons.js'
+import icons from "./icons.js";
 
 export default {
   name: "Selector",
-  props: ['value'],
+  props: ["value"],
   data: () => ({
     type: "Month", // Month || FullYeah,
     hiddedOptions: true,
@@ -28,18 +28,16 @@ export default {
       this.type = type;
     },
     onInput(data) {
-      this.$emit('input', data);
+      this.$emit("input", data);
     },
     onPrev() {
-      const month = this.date.getMonth()
-      this.date.setMonth(month - 1);
+      this.date.setMonth(this.month - 1);
       this.onInput(this.date);
     },
     onNext() {
-      const month = this.date.getMonth()
-      this.date.setMonth(month + 1);
+      this.date.setMonth(this.month + 1);
       this.onInput(this.date);
-    },
+    }
   },
   computed: {
     month() {
@@ -48,16 +46,16 @@ export default {
     year() {
       return this.date.getFullYear();
     },
-    dynamicGet() {
-      return `get${this.type}`;
+    formattedMonth() {
+      return ("0" + (this.month + 1)).slice(-2);
     },
     icons() {
       return icons;
     }
   },
   watch: {
-    value: function (val) {
-      this.date = new Date(val)
+    value: function(val) {
+      this.date = new Date(val);
     }
   }
 };
@@ -66,9 +64,9 @@ export default {
 <style lang="scss" scoped>
 #Selector {
   display: block;
+  width: 100%;
   background: #6666664a;
   flex-direction: row;
-  user-select: none;
 }
 
 .controllers {
@@ -92,7 +90,7 @@ export default {
   cursor: pointer;
 
   &:hover {
-    background: #6666664a
+    background: #6666664a;
   }
 }
 </style>

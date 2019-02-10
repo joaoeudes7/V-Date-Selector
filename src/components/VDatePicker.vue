@@ -1,9 +1,8 @@
 <template>
   <div id="VDatePicker">
-    <div class="displayDate">{{ date }}</div>
     <div class="dialog">
-      <Selector v-model="date" />
-      <Calendar v-model="date" />
+      <Selector v-model="date"/>
+      <Calendar :value="date" @input="selectDate"/>
     </div>
   </div>
 </template>
@@ -21,34 +20,31 @@ export default {
     Calendar,
     Selector
   },
-  data: () => ({
-    date: new Date()
-  }),
-  mounted() {
-    if (this.value) {
-      this.date = new Date(this.value)
-    }
+  data() {
+    return {
+      date: new Date(this.value) || new Date()
+    };
   },
   methods: {
-    onChange() {
-      this.$emit("change", this.date);
+    onInput() {
+      this.$emit("input", this.date);
     },
-    selectDay(value) {
-      this.day = value;
-      this.onChange();
+    selectDate(value) {
+      this.date = value;
+      this.onInput();
     },
     selectMonth(value) {
       this.date.setMonth(value);
-      this.onChange();
+      this.onInput();
     },
     selectYeah(value) {
       this.date.setFullYear(value);
-      this.onChange();
+      this.onInput();
     }
   },
   watch: {
-    date: function() {
-      this.$emit('input', this.date)
+    value: function(val) {
+      this.date = val;
     }
   }
 };
@@ -56,8 +52,13 @@ export default {
 
 <style lang="scss" scoped>
 #VDatePicker {
+  display: block;
   width: 240px;
+  border-radius: 4px;
   overflow: hidden;
-  user-select: none;
+
+  & > * {
+    user-select: none;
+  }
 }
 </style>

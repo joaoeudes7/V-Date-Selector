@@ -1,105 +1,95 @@
 <template>
   <div id="Calendar">
     <div class="days">
-      <span v-for="(day, index) in days" class="day" v-html="day" :key="`day-${index}`"/>
+      <span v-for="(day, index) in weekDays" class="day" v-html="day" :key="`day-${index}`"/>
     </div>
-    <div v-for="(week, iweek) in mapMonth" :key="iweek">
-      <template v-for="(date, idate) in week">
-        <span class="date" v-html="date" :key="`date-${idate}-${iweek}`" @click="selectDate(date) "/>
+    <div class="dates">
+      <template v-for="(_date, idate) in datesPrevMonth">
+        <span class="date-disable" v-html="_date" :key="`pm-${idate}`"/>
+      </template>
+
+      <template v-for="(_date, idate) in datesCurrentMonth">
+        <span v-html="_date" :class="['date']" :key="`cm-${idate}`" @click="selectDate(_date) "/>
+      </template>
+
+      <template v-for="(_date, idate) in datesNextMonth">
+        <span class="date-disable" v-html="_date" :key="`nm-${idate}`"/>
       </template>
     </div>
   </div>
 </template>
 
 <script>
-// import Day from "./Day";
-
 export default {
   name: "Calendar",
-  components: {
-    // Day
-  },
-  props: ['value'],
-  data () {
+  props: ["value", "i18n"],
+  data() {
     return {
-    days: ["D", "S", "T", "Q", "Q", "S", "S"],
-    date: this.value
-  }
+      weekDays: this.i18n || ["D", "S", "T", "Q", "Q", "S", "S"],
+      currentDate: this.value
+    };
   },
   methods: {
     selectDate(date) {
-      const _date = this.date;
-      _date.setDate(date)
+      const _date = new Date(this.currentDate);
+      _date.setDate(date);
       this.$emit("input", _date);
     }
   },
   computed: {
     totalDays() {
-      const month = this.date.getMonth();
-      const year = this.date.getFullYear();
-
-      return new Date(year, month + 1, 0).getDate();
+      return new Date(this.year, this.month + 1, 0).getDate();
     },
     month() {
-      return this.date.getMonth();
+      return this.currentDate.getMonth();
     },
     year() {
-      return this.date.getFullYear();
+      return this.currentDate.getFullYear();
     },
-    mapWeek() {
-      const week = [[], [], [], [], [], [], []];
-
-      // week[0] = "Sunday";
-      // week[1] = "Monday";
-      // week[2] = "Tuesday";
-      // week[3] = "Wednesday";
-      // week[4] = "Thursday";
-      // week[5] = "Friday";
-      // week[6] = "Saturday";
-
+    date() {
+      return this.currentDate.getDate();
+    },
+    datesPrevMonth() {
       const firstDayMonth = new Date(this.year, this.month, 1).getDay();
-      const lastDayMonth = new Date(this.year, this.month + 1, 0).getDay();
 
-      const lastDayPrevMonth = firstDayMonth == 0 ? 6 : firstDayMonth - 1;
-
-      if (lastDayPrevMonth != 6) {
+      let dates = [];
+      if (firstDayMonth != 0) {
+        const lastDayPrevMonth = firstDayMonth - 1;
         let lastDatePrevMonth = new Date(this.year, this.month, 0).getDate();
         for (let day = lastDayPrevMonth; day > -1; day--) {
-          week[day].push(lastDatePrevMonth);
+          dates.push(lastDatePrevMonth);
           lastDatePrevMonth--;
         }
       }
-
-      const currentDate = new Date(this.year, this.month, 1);
-      for (let date = 1; date <= this.totalDays; date++) {
-        const _day = currentDate.getDay();
-
-        week[_day].push(date);
-        currentDate.setDate(date + 1);
-      }
-
-      const firstDayNextMonth = lastDayMonth == 6 ? 0 : lastDayMonth + 1;
-      let firstDateNextMonth = 1;
-      for (let day = firstDayNextMonth; day <= 6; day++) {
-        week[day].push(firstDateNextMonth);
-        firstDateNextMonth++;
-      }
-
-      return week;
+      return dates.reverse();
     },
-    mapMonth() {
-      const qtdWeeks = this.mapWeek[0].length;
-      const month = [[], [], [], [], [], []];
+    datesNextMonth() {
+      const lastDayMonth = new Date(this.year, this.month + 1, 0).getDay();
 
-      for (let index = 0; index < qtdWeeks; index++) {
-        month[index] = this.mapWeek.map(days => days[index]);
+      let dates = [];
+      if (lastDayMonth != 6) {
+        const firstDayNextMonth = lastDayMonth + 1;
+        let firstDateNextMonth = 1;
+        for (let day = firstDayNextMonth; day <= 6; day++) {
+          dates.push(firstDateNextMonth);
+          firstDateNextMonth++;
+        }
       }
-      return month;
+      return dates;
+    },
+    datesCurrentMonth() {
+      let dates = [];
+
+      for (let date = 1; date <= this.totalDays; date++) {
+        dates.push(date);
+      }
+
+      return dates;
     }
   },
   watch: {
-    value: function (val) {
-      this.date = new Date(val)
+    value: function(val) {
+      this.currentDate = val;
     }
   }
 };
@@ -107,7 +97,8 @@ export default {
 
 <style lang="scss" scoped>
 #Calendar {
-  user-select: none;;
+  display: block;
+  width: 100%;
 }
 
 .days {
@@ -117,8 +108,16 @@ export default {
 .day {
   display: inline-block;
   color: #5f5f5f;
+  font-size: 12px;
   padding: 5px;
   width: 24px;
+}
+
+.dates {
+  display: inline-grid;
+  width: 100%;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: #f3f3f3;
 }
 
 .date {
@@ -128,11 +127,26 @@ export default {
   width: 24px;
   cursor: pointer;
 
-  :hover {
-    background: #d3d3d3;
+  &:hover {
+    background: #0061df;
+    color: #ffffff;
   }
-}
 
-.day-week {
+  &-current {
+    @extend .date;
+    background: #2081ff;
+    color: #ffffff;
+  }
+
+  &-disable {
+    @extend .date;
+    color: #8f8f8f;
+    cursor: auto;
+
+    &:hover {
+      background: #f3f3f3;
+      color: #8f8f8f;
+    }
+  }
 }
 </style>
