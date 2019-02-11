@@ -4,10 +4,10 @@
     <div class="controllers">
       <VSVG @click="onPrev('month')" name="arrowLeft" class="icon" />
       <div>{{ formattedMonth }}</div>
-      <VSVG @click="onPrev('month')" name="arrowRight" class="icon"/>
-      <VSVG @click="onPrev('month')" name="arrowLeft" class="icon"/>
+      <VSVG @click="onNext('month')" name="arrowRight" class="icon"/>
+      <VSVG @click="onPrev('year')" name="arrowLeft" class="icon"/>
       <div>{{ year }}</div>
-      <VSVG @click="onPrev('month')" name="arrowRight" class="icon"/>
+      <VSVG @click="onNext('year')" name="arrowRight" class="icon"/>
     </div>
   </div>
 </template>
@@ -94,12 +94,13 @@ export default {
 #Selector {
   display: block;
   width: 100%;
-  background: #6666664a;
+  background: #d2d2d2;
   flex-direction: row;
 }
 
 .labelMonth {
   color: #525252;
+  text-align: center;
   padding-top: 6px;
 }
 
@@ -122,7 +123,6 @@ export default {
   padding: 5px;
   border-radius: 50%;
   border: none;
-  cursor: pointer;
 
   &:hover {
     background: #6666664a;

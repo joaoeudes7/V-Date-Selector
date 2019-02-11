@@ -16,7 +16,7 @@ import Input from "./Input";
 export default {
   name: "VDateSelector",
   props: {
-    value: { type: Date || String },
+    value: { type: Date },
     showInput: { type: Boolean, default: true }
   },
   components: {
@@ -71,6 +71,11 @@ export default {
 #VDatePicker {
   display: block;
   position: relative;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  cursor: pointer;
 }
 
 .dialog {
