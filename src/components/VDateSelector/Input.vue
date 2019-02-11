@@ -24,15 +24,17 @@ export default {
 
 <style lang="scss">
 #Input {
-  width: 200px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border: 1px solid #bfbfbf;
   border-radius: 8px;
-  padding: 2px 12px;
   user-select: none;
 
+  & > span {
+    padding-left: 8px;
+  }
 }
 
 .button {
@@ -40,12 +42,7 @@ export default {
   width: 26px;
   height: 26px;
   padding: 5px;
-  border-radius: 50%;
   border: none;
   cursor: pointer;
-
-  &:hover {
-    background: #6666664a
-  }
 }
 </style>
