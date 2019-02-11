@@ -1,5 +1,5 @@
 <template>
-  <div id="VDatePicker">
+  <div id="VDateSelector">
     <Input v-if="showInput" :value="formattedDate" @click="toogleDialog" />
     <div v-if="showDialog" class="dialog">
       <Selector v-model="date"/>
@@ -68,7 +68,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#VDatePicker {
+#VDateSelector {
   display: block;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
