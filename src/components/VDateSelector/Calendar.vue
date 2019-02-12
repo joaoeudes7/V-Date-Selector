@@ -30,7 +30,7 @@ export default {
   props: ["value", "isActualDate", "i18n"],
   data() {
     return {
-      weekDays: this.i18n || ["D", "S", "T", "Q", "Q", "S", "S"],
+      weekDays: this.i18n.weekdaysMin,
       currentDate: this.value
     };
   },
@@ -104,6 +104,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$white: #ffffff;
+$blue: #2081ff;
+$gray: #8f8f8f;
+
 #Calendar {
   display: block;
   width: 100%;
@@ -136,24 +140,24 @@ export default {
   cursor: pointer;
 
   &:hover {
-    background: #0061df;
-    color: #ffffff;
+    background: darken($blue, 10%);
+    color: $white;
   }
 
   &-current {
     @extend .date;
-    background: #2081ff;
-    color: #ffffff;
+    background: $blue;
+    color: $white;
   }
 
   &-disable {
     @extend .date;
-    color: #8f8f8f;
+    color: $gray;
     cursor: auto;
 
     &:hover {
       background: #f3f3f3;
-      color: #8f8f8f;
+      color: $gray;
     }
   }
 }

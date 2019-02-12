@@ -1,6 +1,6 @@
 <template>
   <div id="Selector">
-    <div class="labelMonth" v-html="i18[month]" />
+    <div class="labelMonth" v-html="i18n.months[month]" />
     <div class="controllers">
       <VSVG @click="onPrev('month')" name="arrowLeft" class="icon" />
       <div>{{ formattedMonth }}</div>
@@ -17,7 +17,7 @@ import VSVG from "../VSVG";
 
 export default {
   name: "Selector",
-  props: ["value", "18n"],
+  props: ["value", "i18n"],
   components: {
     VSVG
   },
@@ -64,22 +64,6 @@ export default {
     },
     formattedMonth() {
       return ("0" + (this.month + 1)).slice(-2);
-    },
-    i18() {
-      return this.i18n || [
-        "Janeiro",
-        "Fevereiro",
-        "Março",
-        "Abril",
-        "Maio",
-        "Junho",
-        "Julho",
-        "Agosto",
-        "Setembro",
-        "Outubro",
-        "Novembro",
-        "Dezembro"
-      ]
     }
   },
   watch: {
@@ -123,6 +107,8 @@ export default {
   padding: 5px;
   border-radius: 50%;
   border: none;
+  cursor: pointer;
+
 
   &:hover {
     background: #6666664a;
