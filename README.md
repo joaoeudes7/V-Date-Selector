@@ -45,10 +45,5 @@ export default {
 </script>
 ```
 
-Or use only Calendar:
-```html
-  <VDateSelector v-model="date" :showInput="false"/>
-```
-
 # Demo
 <!-- Click here to view in Browser: [Vue Component (Multi Select/Double Select)]() -->
